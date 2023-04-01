@@ -3,14 +3,16 @@ package controllers
 import (
 	"context"
 	"errors"
-	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"fmt"
 	"log"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
 	"user-auth/models"
+
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var client = database.Connect()
@@ -23,10 +25,11 @@ func SignUpShopper(c *gin.Context) {
 	if err := c.BindJSON(&shopper); err != nil {
 		log.Println(err)
 		if c.AbortWithError(408, errors.New("could not bind json to shopper pointer")) != nil {
+			c.Errors.JSON()
 		}
 		return
 	}
-	sameEmails, err := shopperCollection.CountDocuments(ctx, bson.D{{"email", shopper.Email}})
+	sameEmails, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "email", Value: shopper.Email}})
 	if err != nil {
 		log.Println(err)
 		if c.AbortWithError(400, errors.New("could not search for duplicate documents")) != nil {
@@ -37,12 +40,13 @@ func SignUpShopper(c *gin.Context) {
 
 	if sameEmails > 0 {
 		log.Println("This email already exists")
+		c.Errors.JSON()
 		if c.AbortWithError(409, errors.New("this email already exists")) != nil {
 			return
 		}
 		return
 	}
-	samePhone, err := shopperCollection.CountDocuments(ctx, bson.D{{"phone", shopper.Phone}})
+	samePhone, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "phone", Value: shopper.Phone}})
 	if err != nil {
 		log.Println(err)
 		if c.AbortWithError(400, errors.New("could not perform search for duplicate phone numbers")) != nil {
@@ -53,6 +57,7 @@ func SignUpShopper(c *gin.Context) {
 
 	if samePhone > 0 {
 		log.Println("This phone already exists")
+		c.JSON(409, gin.H{"error": "this telephone is already"})
 		if c.AbortWithError(409, errors.New("this phone number exists in the database")) != nil {
 			return
 		}
@@ -88,6 +93,7 @@ func SignUpShopper(c *gin.Context) {
 
 	if err != nil {
 		log.Println(err)
+		fmt.Println(c.Errors)
 		if c.AbortWithError(500, errors.New("could not insert new user into collection")) != nil {
 			return
 		}
@@ -115,12 +121,12 @@ func LoginShopper(c *gin.Context) {
 	}
 	var matchingUser models.User
 	if err := shopperCollection.FindOne(ctx,
-		bson.D{{"email", shopper.Email}}).Decode(&matchingUser); err != nil {
+		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser); err != nil {
 		log.Println("Could not traverse the document", err)
 		return
 	}
 
-	emailExists, err := shopperCollection.CountDocuments(ctx, bson.D{{"email", shopper.Email}})
+	emailExists, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "email", Value: shopper.Email}})
 	if err != nil {
 		log.Println("Unable to count documents", err)
 		return
@@ -156,7 +162,7 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 	helpers.UpdateAllTokens(c, signedAuthToken, signedRefreshToken)
-	if err := shopperCollection.FindOne(ctx, bson.D{{"_id", matchingId}, {"email", matchingUser.Email}, {"phone", matchingUser.Phone}}).Decode(&matchingUser); err != nil {
+	if err := shopperCollection.FindOne(ctx, bson.D{{Key: "_id", Value: matchingId}, {Key: "email", Value: matchingUser.Email}, {Key: "phone", Value: matchingUser.Phone}}).Decode(&matchingUser); err != nil {
 		log.Println("Error matching user, some credentials may be incorrect", err)
 		return
 	}
