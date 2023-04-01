@@ -23,7 +23,7 @@ type SignedDetails struct {
 func HashPassword(rawPassword string) string {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(rawPassword), 14)
 	if err != nil {
-		log.Println(err.Error())
+		log.Panic(err)
 		return "axe"
 	}
 	if string(hashedPassword) == "" {
@@ -55,12 +55,14 @@ func GenerateAllTokens(shopper models.User) (string, string, error) {
 
 	signedAuthToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, authClaims).SignedString([]byte(os.Getenv("SECRET_KEY")))
 	if err != nil {
-		log.Println("Could not generate auth token", err)
+		recover()
+		log.Panic("Could not generate auth token", err)
 		return "", "", err
 	}
 	signedRefreshToken, err := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims).SignedString([]byte(os.Getenv("SECRET_KEY")))
 	if err != nil {
-		log.Println("Could not generate refresh token", err)
+		recover()
+		log.Panic("Could not generate refresh token", err)
 		return "", "", err
 	}
 	return signedAuthToken, signedRefreshToken, err
@@ -126,7 +128,9 @@ func NullifyAllCookies(c *gin.Context) {
 
 func VerifyPassword(hashed, password string) (bool, string) {
 	if err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(password)); err != nil {
-		log.Println(err)
+		recover()
+		log.Panic(err)
+
 		return false, "Password is not a match"
 	}
 	return true, "Password is a match"

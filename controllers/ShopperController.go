@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -20,27 +21,41 @@ func SignUpShopper(c *gin.Context) {
 	defer cancel()
 	var shopper models.User
 	if err := c.BindJSON(&shopper); err != nil {
-		log.Println("Could not bind json to shopper pointer", err)
+		log.Println(err)
+		if c.AbortWithError(408, errors.New("could not bind json to shopper pointer")) != nil {
+		}
 		return
 	}
 	sameEmails, err := shopperCollection.CountDocuments(ctx, bson.D{{"email", shopper.Email}})
 	if err != nil {
-		log.Println("Could not search for duplicate documents", err)
+		log.Println(err)
+		if c.AbortWithError(400, errors.New("could not search for duplicate documents")) != nil {
+			return
+		}
 		return
 	}
 
 	if sameEmails > 0 {
 		log.Println("This email already exists")
+		if c.AbortWithError(409, errors.New("this email already exists")) != nil {
+			return
+		}
 		return
 	}
 	samePhone, err := shopperCollection.CountDocuments(ctx, bson.D{{"phone", shopper.Phone}})
 	if err != nil {
-		log.Println("Could not search for duplicate documents", err)
+		log.Println(err)
+		if c.AbortWithError(400, errors.New("could not perform search for duplicate phone numbers")) != nil {
+			return
+		}
 		return
 	}
 
 	if samePhone > 0 {
 		log.Println("This phone already exists")
+		if c.AbortWithError(409, errors.New("this phone number exists in the database")) != nil {
+			return
+		}
 		return
 	}
 
@@ -50,6 +65,9 @@ func SignUpShopper(c *gin.Context) {
 	shopper.CreatedAt, err = time.Parse(time.RFC850, time.Now().Format(time.RFC850))
 	if err != nil {
 		log.Println("Could not set createdAt time", err)
+		if c.AbortWithError(400, errors.New("could not set createdAt time")) != nil {
+			return
+		}
 		return
 	}
 
@@ -60,17 +78,27 @@ func SignUpShopper(c *gin.Context) {
 	authToken, refreshToken, err := helpers.GenerateAllTokens(shopper)
 	if err != nil {
 		log.Println("Could not generate tokens", err)
+		if c.AbortWithError(408, errors.New("could not generate auth and refresh tokens")) != nil {
+			return
+		}
+		return
 	}
 
 	result, err := shopperCollection.InsertOne(ctx, shopper)
 
 	if err != nil {
-		log.Println("Could not insert into document", err)
+		log.Println(err)
+		if c.AbortWithError(500, errors.New("could not insert new user into collection")) != nil {
+			return
+		}
 		return
 	}
 
 	if err := helpers.CreateCookiesForTokens(c, authToken, refreshToken); err != nil {
-		log.Panic("Could not create cookies", err)
+		log.Println(err)
+		if c.AbortWithError(500, errors.New("could not create cookies for auth and refresh tokens")) != nil {
+			return
+		}
 		return
 	}
 	c.JSON(201, gin.H{"success": result.InsertedID})
