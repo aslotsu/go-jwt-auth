@@ -40,7 +40,7 @@ func SignUpShopper(c *gin.Context) {
 
 	if sameEmails > 0 {
 		log.Println("This email already exists")
-		c.Errors.JSON()
+		c.AbortWithStatusJSON(409, "honey this email already exists")
 		if c.AbortWithError(409, errors.New("this email already exists")) != nil {
 			return
 		}
