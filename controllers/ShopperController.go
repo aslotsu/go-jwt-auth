@@ -4,15 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
 	"user-auth/models"
-
-	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var client = database.Connect()
@@ -29,6 +28,7 @@ func SignUpShopper(c *gin.Context) {
 		}
 		return
 	}
+
 	sameEmails, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "email", Value: shopper.Email}})
 	if err != nil {
 		log.Println(err)
@@ -40,6 +40,7 @@ func SignUpShopper(c *gin.Context) {
 
 	if sameEmails > 0 {
 		log.Println("This email already exists")
+		c.Error(errors.New("")).JSON()
 		c.AbortWithStatusJSON(412, gin.H{"unsuccessful": "honey this email already exists"})
 		c.Abort()
 		if c.AbortWithError(409, errors.New("this email already exists")) != nil {
@@ -47,6 +48,7 @@ func SignUpShopper(c *gin.Context) {
 		}
 		return
 	}
+
 	samePhone, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "phone", Value: shopper.Phone}})
 	if err != nil {
 		log.Println(err)
