@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
+	"net/http"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
@@ -187,24 +188,24 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	//authCookie, err := c.Request.Cookie("AuthToken")
-	//if err == http.ErrNoCookie {
-	//	if err := c.AbortWithError(405, errors.New("auth Cookie not found")); err != nil {
-	//		log.Println(authCookie)
-	//	}
-	//}
-	//if err != nil {
-	//	log.Println(err)
-	//}
-	//refreshCookie, err := c.Request.Cookie("RefreshToken")
-	//if err != http.ErrNoCookie {
-	//	if err := c.AbortWithError(407, errors.New("could not find refresh token")); err != nil {
-	//		log.Println(refreshCookie)
-	//	}
-	//}
-	//if err != nil {
-	//
-	//}
+	authCookie, err := c.Request.Cookie("AuthToken")
+	if err == http.ErrNoCookie {
+		if err := c.AbortWithError(405, errors.New("auth Cookie not found")); err != nil {
+			log.Println(authCookie)
+		}
+	}
+	if err != nil {
+		log.Println(err)
+	}
+	refreshCookie, err := c.Request.Cookie("RefreshToken")
+	if err != http.ErrNoCookie {
+		if err := c.AbortWithError(407, errors.New("could not find refresh token")); err != nil {
+			log.Println(refreshCookie)
+		}
+	}
+	if err != nil {
+
+	}
 	c.JSON(200, matchingUser)
 }
 
