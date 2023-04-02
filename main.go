@@ -9,17 +9,17 @@ import (
 )
 
 func main() {
-	gin.SetMode(gin.ReleaseMode)
+	//gin.SetMode(gin.ReleaseMode)
 
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"127.0.0.1:3000", "localhost:3000"},
-		AllowMethods:     []string{"POST", "PATCH"},
+		AllowOrigins:     []string{"https://trains-git-main-aslotsu.vercel.app"},
+		AllowMethods:     []string{"POST", "OPTIONS", "GET", "PATCH"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
-			return origin == "127.0.0.1:3000" || origin == "localhost:3000"
+			return origin == "https://trains-git-main-aslotsu.vercel.app"
 		},
 		MaxAge: 12 * time.Hour,
 	}))
