@@ -100,8 +100,8 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Name:     "RefreshToken",
 		Value:    refreshToken,
 		Expires:  time.Now().Add(time.Hour * 168),
-		HttpOnly: true,
-		Secure:   true,
+		HttpOnly: false,
+		Secure:   false,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
