@@ -16,7 +16,7 @@ func main() {
 		AllowOrigins:     []string{"https://trains-git-main-aslotsu.vercel.app"},
 		AllowMethods:     []string{"POST", "OPTIONS", "GET", "PATCH"},
 		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length", "Content-Type", "content-type"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
 			return origin == "https://trains-git-main-aslotsu.vercel.app"
