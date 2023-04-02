@@ -76,21 +76,20 @@ func SignUpShopper(c *gin.Context) {
 
 	shopper.UserID = shopper.ID.Hex()
 
-	authToken, refreshToken, err := helpers.GenerateAllTokens(shopper)
-	if err != nil {
-		log.Println("Could not generate tokens", err)
-		if c.AbortWithError(408, errors.New("could not generate auth and refresh tokens")) != nil {
-			return
-		}
-		return
-	}
-
 	result, err := shopperCollection.InsertOne(ctx, shopper)
 
 	if err != nil {
 		log.Println(err)
 		fmt.Println(c.Errors)
 		if c.AbortWithError(500, errors.New("could not insert new user into collection")) != nil {
+			return
+		}
+		return
+	}
+	authToken, refreshToken, err := helpers.GenerateAllTokens(shopper)
+	if err != nil {
+		log.Println("Could not generate tokens", err)
+		if c.AbortWithError(408, errors.New("could not generate auth and refresh tokens")) != nil {
 			return
 		}
 		return
