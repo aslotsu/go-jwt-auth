@@ -185,12 +185,11 @@ func LoginShopper(c *gin.Context) {
 	}
 
 	refreshCookie, err := c.Request.Cookie("RefreshToken")
-	if err != http.ErrNoCookie {
+	if err == http.ErrNoCookie {
 		if err := c.AbortWithError(407, errors.New("could not find refresh token")); err != nil {
-			log.Println("refreshCookie", refreshCookie)
 		}
 	}
-	log.Println("refreshCookie", refreshCookie.Value)
+	_ = refreshCookie
 	if err != nil {
 
 	}
