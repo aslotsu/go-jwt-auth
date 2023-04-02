@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="error handling improved v5.3.3">
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="error handling improved v5.3.4" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,7 +123,8 @@
     <MESSAGE value="error handling improved v5.3.1" />
     <MESSAGE value="error handling improved v5.3.2" />
     <MESSAGE value="error handling improved v5.3.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="error handling improved v5.3.3" />
+    <MESSAGE value="error handling improved v5.3.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="error handling improved v5.3.4" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
