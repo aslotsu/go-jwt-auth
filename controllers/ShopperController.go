@@ -190,6 +190,7 @@ func LoginShopper(c *gin.Context) {
 			log.Println(refreshCookie)
 		}
 	}
+	log.Println(refreshCookie)
 	if err != nil {
 
 	}
