@@ -30,7 +30,7 @@ func main() {
 		context.JSON(200, "The router is working")
 	})
 
-	if err := router.Run(":8901"); err != nil {
+	if err := router.Run(":9000"); err != nil {
 		log.Println(err)
 		return
 	}
