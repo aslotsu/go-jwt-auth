@@ -70,25 +70,25 @@ func GenerateAllTokens(shopper models.User) (string, string, error) {
 
 func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	authCookie := http.Cookie{
-		Name:  "AuthToken",
+		Name:  "sd",
 		Value: authToken,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		MaxAge:   300,
 		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour),
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
-		Name:   "RefreshToken",
+		Name:   "dfg",
 		Value:  refreshToken,
 		MaxAge: 3600,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour * 168),
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 
@@ -98,25 +98,25 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 
 func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) error {
 	authCookie := http.Cookie{
-		Name:   "AuthToken",
+		Name:   "gogaga",
 		Value:  authToken,
 		Path:   "/",
 		MaxAge: 300,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		Expires:  time.Now().Add(time.Hour),
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
-		Name:   "RefreshToken",
+		Name:   "minigogo",
 		Value:  refreshToken,
 		Path:   "/",
 		MaxAge: 3600,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
 		Expires:  time.Now().Add(time.Hour * 168),
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 
