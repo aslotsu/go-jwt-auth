@@ -72,7 +72,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	authCookie := http.Cookie{
 		Name:     "AuthToken",
 		Value:    authToken,
-		SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour),
 		HttpOnly: false,
@@ -81,7 +81,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
 		Value:    refreshToken,
-		SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour * 168),
 		HttpOnly: false,
@@ -98,7 +98,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Value:    authToken,
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour),
-		SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
 		Secure:   false,
 	}
@@ -106,7 +106,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Name:     "RefreshToken",
 		Value:    refreshToken,
 		Path:     "/",
-		SameSite: http.SameSiteLaxMode,
+		SameSite: http.SameSiteNoneMode,
 		Expires:  time.Now().Add(time.Hour * 168),
 		HttpOnly: false,
 		Secure:   false,
