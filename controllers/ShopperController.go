@@ -120,13 +120,9 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 	var matchingUser models.User
-	if err := shopperCollection.FindOne(ctx,
-		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser); err != nil {
-		if err := c.AbortWithError(404, errors.New("could not traverse users document to find matching user")); err != nil {
-			return
-		}
-		return
-	}
+	searchResult := shopperCollection.FindOne(ctx,
+		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser)
+	log.Println(searchResult)
 
 	emailExists, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "email", Value: shopper.Email}})
 	if err != nil {
@@ -188,15 +184,6 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	authCookie, err := c.Request.Cookie("AuthToken")
-	if err == http.ErrNoCookie {
-		if err := c.AbortWithError(405, errors.New("auth Cookie not found")); err != nil {
-			log.Println(authCookie)
-		}
-	}
-	if err != nil {
-		log.Println(err)
-	}
 	refreshCookie, err := c.Request.Cookie("RefreshToken")
 	if err != http.ErrNoCookie {
 		if err := c.AbortWithError(407, errors.New("could not find refresh token")); err != nil {
