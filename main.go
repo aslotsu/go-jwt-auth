@@ -13,13 +13,13 @@ func main() {
 
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://go-jwt-auth-production.up.railway.app/users/signup"},
+		AllowOrigins:     []string{"127.0.0.1:3000", "localhost:3000"},
 		AllowMethods:     []string{"POST", "PATCH"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
-			return origin == "https://go-jwt-auth-production.up.railway.app/users/signup"
+			return origin == "127.0.0.1:3000" || origin == "localhost:3000"
 		},
 		MaxAge: 12 * time.Hour,
 	}))
