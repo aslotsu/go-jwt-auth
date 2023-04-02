@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -79,11 +78,11 @@ func SignUpShopper(c *gin.Context) {
 	result, err := shopperCollection.InsertOne(ctx, shopper)
 
 	if err != nil {
-		log.Println(err)
-		fmt.Println(c.Errors)
+
 		if c.AbortWithError(500, errors.New("could not insert new user into collection")) != nil {
 			return
 		}
+		log.Panic(err)
 		return
 	}
 	authToken, refreshToken, err := helpers.GenerateAllTokens(shopper)
