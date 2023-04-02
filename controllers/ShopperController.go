@@ -167,10 +167,10 @@ func LoginShopper(c *gin.Context) {
 	matchingUser.UpdatedAt, err = time.Parse(time.RFC850, time.Now().Format(time.RFC850))
 
 	if err != nil {
-		if err := c.AbortWithError(405,
-			errors.New("unable to set time of update, request incomplete")); err != nil {
-			return
-		}
+		//if err := c.AbortWithError(405,
+		//	errors.New("unable to set time of update, request incomplete")); err != nil {
+		//	return
+		//}
 		log.Println("Error setting time of update", err)
 		return
 	}
