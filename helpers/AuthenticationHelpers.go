@@ -78,7 +78,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour),
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
@@ -89,7 +89,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour * 168),
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
@@ -106,7 +106,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Expires:  time.Now().Add(time.Hour),
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
@@ -117,7 +117,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		SameSite: http.SameSiteNoneMode,
 		Expires:  time.Now().Add(time.Hour * 168),
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
