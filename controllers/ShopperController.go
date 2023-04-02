@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
-	"net/http"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
@@ -184,12 +183,6 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	refreshCookie, err := c.Request.Cookie("RefreshToken")
-	if err == http.ErrNoCookie {
-		if err := c.AbortWithError(407, errors.New("could not find refresh token")); err != nil {
-		}
-	}
-	_ = refreshCookie
 	if err != nil {
 
 	}
