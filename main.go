@@ -13,16 +13,17 @@ func main() {
 
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://go-jwt-auth-production.up.railway.app"},
+		AllowOrigins:     []string{"https://go-jwt-auth-production.up.railway.app/users/signup"},
 		AllowMethods:     []string{"POST", "PATCH"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
-			return origin == "https://go-jwt-auth-production.up.railway.app"
+			return origin == "https://go-jwt-auth-production.up.railway.app/users/signup"
 		},
 		MaxAge: 12 * time.Hour,
 	}))
+
 	routes.BusinessRouter(router)
 	routes.ShopperRouter(router)
 	router.GET("/hi", func(context *gin.Context) {
