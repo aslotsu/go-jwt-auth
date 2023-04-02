@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
+	"net/http"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
@@ -185,6 +186,25 @@ func LoginShopper(c *gin.Context) {
 		Decode(&matchingUser); err != nil {
 		log.Println("Error matching user, some credentials may be incorrect", err)
 		return
+	}
+
+	authCookie, err := c.Request.Cookie("AuthToken")
+	if err == http.ErrNoCookie {
+		if err := c.AbortWithError(405, errors.New("auth Cookie not found")); err != nil {
+			log.Println(authCookie)
+		}
+	}
+	if err != nil {
+		log.Println(err)
+	}
+	refreshCookie, err := c.Request.Cookie("RefreshCookieToken")
+	if err != http.ErrNoCookie {
+		if err := c.AbortWithError(407, errors.New("Could not find rfresh token")); err != nil {
+			log.Println(refreshCookie)
+		}
+	}
+	if err != nil {
+
 	}
 	c.JSON(200, matchingUser)
 }
