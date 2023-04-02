@@ -76,7 +76,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 		MaxAge:   300,
 		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
-		Expires:  time.Now().Add(time.Hour),
+		Expires:  time.Now().Add(time.Hour * 1),
 		HttpOnly: true,
 		Secure:   true,
 	}
@@ -103,7 +103,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Path:   "/",
 		MaxAge: 300,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
-		Expires:  time.Now().Add(time.Hour),
+		Expires:  time.Now().Add(time.Hour * 1),
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: true,
 		Secure:   true,
