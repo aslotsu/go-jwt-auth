@@ -15,7 +15,7 @@ func main() {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"https://trains-git-main-aslotsu.vercel.app"},
 		AllowMethods:     []string{"POST", "OPTIONS", "GET", "PATCH"},
-		AllowHeaders:     []string{"Origin"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "content-type"},
 		ExposeHeaders:    []string{"Content-Length", "Content-Type", "content-type"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
