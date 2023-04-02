@@ -158,21 +158,31 @@ func LoginShopper(c *gin.Context) {
 
 	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
 	if err != nil {
+		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
+			return
+		}
 		log.Println("Unable to generate tokens", err)
 	}
 	matchingUser.UpdatedAt, err = time.Parse(time.RFC850, time.Now().Format(time.RFC850))
 
 	if err != nil {
+		if err := c.AbortWithError(405,
+			errors.New("unable to set time of update, request incomplete")); err != nil {
+			return
+		}
 		log.Println("Error setting time of update", err)
 		return
 	}
 	matchingId, err := primitive.ObjectIDFromHex(matchingUser.UserID)
 	if err != nil {
+		c.JSON(404, "unable to get matching ID from hex value")
 		log.Println("Unable to extract _id from hex", err)
 		return
 	}
 	helpers.UpdateAllTokens(c, signedAuthToken, signedRefreshToken)
-	if err := shopperCollection.FindOne(ctx, bson.D{{Key: "_id", Value: matchingId}, {Key: "email", Value: matchingUser.Email}, {Key: "phone", Value: matchingUser.Phone}}).Decode(&matchingUser); err != nil {
+	if err := shopperCollection.FindOne(ctx, bson.D{{Key: "_id", Value: matchingId},
+		{Key: "email", Value: matchingUser.Email}, {Key: "phone", Value: matchingUser.Phone}}).
+		Decode(&matchingUser); err != nil {
 		log.Println("Error matching user, some credentials may be incorrect", err)
 		return
 	}
