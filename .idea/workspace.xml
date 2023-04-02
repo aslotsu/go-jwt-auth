@@ -103,7 +103,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="error handling improved v5.1.4" />
     <MESSAGE value="error handling improved v5.1.5" />
     <MESSAGE value="error handling improved v5.1.6" />
     <MESSAGE value="error handling improved v5.2" />
@@ -128,7 +127,8 @@
     <MESSAGE value="cors fixing 2.1.324" />
     <MESSAGE value="cors fixing 2.1.35" />
     <MESSAGE value="cors fixing 2.1.38" />
-    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.38" />
+    <MESSAGE value="cors fixing 2.1.39" />
+    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.39" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
