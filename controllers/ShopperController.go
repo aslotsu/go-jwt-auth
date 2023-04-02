@@ -39,7 +39,7 @@ func SignUpShopper(c *gin.Context) {
 	}
 
 	if sameEmails > 0 {
-		c.AbortWithStatusJSON(412, gin.H{"unsuccessful": "honey this email already exists"})
+		c.AbortWithStatusJSON(409, gin.H{"unsuccessful": "honey this email already exists"})
 	}
 
 	samePhone, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "phone", Value: shopper.Phone}})
@@ -112,13 +112,18 @@ func LoginShopper(c *gin.Context) {
 	defer cancel()
 	var shopper models.User
 	if err := c.BindJSON(&shopper); err != nil {
+		if err := c.AbortWithError(400, errors.New("could not parse and set json body to shopper struct")); err != nil {
+			return
+		}
 		log.Println("Could not bind json to shopper struct", err)
 		return
 	}
 	var matchingUser models.User
 	if err := shopperCollection.FindOne(ctx,
 		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser); err != nil {
-		log.Println("Could not traverse the document", err)
+		if err := c.AbortWithError(404, errors.New("could not traverse users document to find matching user")); err != nil {
+			return
+		}
 		return
 	}
 
@@ -128,16 +133,25 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 	if emailExists < 1 {
+		if err := c.AbortWithError(404, errors.New("could not find matching email")); err != nil {
+			return
+		}
 		log.Println("Could not find any matching email", err)
 		return
 	}
 
 	valid, msg := helpers.VerifyPassword(matchingUser.Password, shopper.Password)
 	if msg != "Password is a match" {
+		if err := c.AbortWithError(404, errors.New("unable to verify password")); err != nil {
+			c.JSON(404, err)
+		}
 		log.Println("Unable to verify password", err)
 		return
 	}
 	if !valid {
+		if err := c.AbortWithError(400, errors.New("password in incorrect")); err != nil {
+			log.Println(err)
+		}
 		log.Println("Passwords did not match")
 		return
 	}

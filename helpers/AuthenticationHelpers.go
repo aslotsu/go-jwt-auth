@@ -70,18 +70,18 @@ func GenerateAllTokens(shopper models.User) (string, string, error) {
 
 func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	authCookie := http.Cookie{
-		Name:    "AuthToken",
-		Value:   authToken,
-		Expires: time.Now().Add(time.Hour),
-		//HttpOnly: true,
-		//Secure:   true,
+		Name:     "AuthToken",
+		Value:    authToken,
+		Expires:  time.Now().Add(time.Hour),
+		HttpOnly: false,
+		Secure:   false,
 	}
 	refreshCookie := http.Cookie{
-		Name:    "RefreshToken",
-		Value:   refreshToken,
-		Expires: time.Now().Add(time.Hour * 168),
-		//HttpOnly: true,
-		//Secure:   true,
+		Name:     "RefreshToken",
+		Value:    refreshToken,
+		Expires:  time.Now().Add(time.Hour * 168),
+		HttpOnly: false,
+		Secure:   false,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
@@ -90,18 +90,18 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 
 func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) error {
 	authCookie := http.Cookie{
-		Name:    "AuthToken",
-		Value:   authToken,
-		Expires: time.Now().Add(time.Hour),
-		//HttpOnly: true,
-		//Secure:   true,
+		Name:     "AuthToken",
+		Value:    authToken,
+		Expires:  time.Now().Add(time.Hour),
+		HttpOnly: false,
+		Secure:   false,
 	}
 	refreshCookie := http.Cookie{
-		Name:    "RefreshToken",
-		Value:   refreshToken,
-		Expires: time.Now().Add(time.Hour * 168),
-		//	HttpOnly: true,
-		//	Secure:   true,
+		Name:     "RefreshToken",
+		Value:    refreshToken,
+		Expires:  time.Now().Add(time.Hour * 168),
+		HttpOnly: true,
+		Secure:   true,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
@@ -111,6 +111,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 }
 
 func NullifyAllCookies(c *gin.Context) {
+
 	authCookie := http.Cookie{
 		Name:    "AuthToken",
 		Value:   "",

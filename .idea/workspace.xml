@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="error handling improved v3">
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="error handling improved v4:cookies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/ShopperController.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ShopperController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +114,8 @@
     <MESSAGE value="error handling improved" />
     <MESSAGE value="error handling improved v2" />
     <MESSAGE value="error handling improved v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="error handling improved v3" />
+    <MESSAGE value="error handling improved v4:cookies" />
+    <option name="LAST_COMMIT_MESSAGE" value="error handling improved v4:cookies" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
