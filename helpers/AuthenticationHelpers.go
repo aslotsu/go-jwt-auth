@@ -72,6 +72,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	authCookie := http.Cookie{
 		Name:     "AuthToken",
 		Value:    authToken,
+		Domain:   "https://trains-git-main-aslotsu.vercel.app",
 		Expires:  time.Now().Add(time.Hour),
 		HttpOnly: false,
 		Secure:   false,
@@ -79,6 +80,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
 		Value:    refreshToken,
+		Domain:   "https://trains-git-main-aslotsu.vercel.app",
 		Expires:  time.Now().Add(time.Hour * 168),
 		HttpOnly: false,
 		Secure:   false,
@@ -92,6 +94,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 	authCookie := http.Cookie{
 		Name:     "AuthToken",
 		Value:    authToken,
+		Domain:   "https://trains-git-main-aslotsu.vercel.app",
 		Expires:  time.Now().Add(time.Hour),
 		HttpOnly: false,
 		Secure:   false,
@@ -99,6 +102,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
 		Value:    refreshToken,
+		Domain:   "https://trains-git-main-aslotsu.vercel.app",
 		Expires:  time.Now().Add(time.Hour * 168),
 		HttpOnly: false,
 		Secure:   false,
