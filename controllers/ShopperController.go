@@ -179,13 +179,16 @@ func LoginShopper(c *gin.Context) {
 func GetUser(c *gin.Context) {
 	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	//defer cancel()
+
 	authTokenPointer, err := c.Request.Cookie("RefreshToken")
 	if err == http.ErrNoCookie {
 		log.Println("AuthToken is not stored on client maybe")
+		return
 	}
 	if err != nil {
 		log.Println(err)
 		log.Println(authTokenPointer)
+		return
 	}
 	log.Println("We found the cookie!!!!!!")
 
