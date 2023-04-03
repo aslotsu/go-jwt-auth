@@ -70,7 +70,7 @@ func GenerateAllTokens(shopper models.User) (string, string, error) {
 
 func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	authCookie := http.Cookie{
-		Name:  "sd",
+		Name:  "AuthToken",
 		Value: authToken,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		MaxAge:   300,
@@ -81,7 +81,7 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 	}
 
 	refreshCookie := http.Cookie{
-		Name:   "dfg",
+		Name:   "RefreshToken",
 		Value:  refreshToken,
 		MaxAge: 3600,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
