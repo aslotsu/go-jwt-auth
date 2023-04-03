@@ -134,12 +134,19 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	//signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
+	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
+
 	if err != nil {
 		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
 			return
 		}
 		log.Println("Unable to generate tokens", err)
+	}
+	if err := helpers.CreateCookiesForTokens(c, signedAuthToken, signedRefreshToken); err != nil {
+		if err := c.AbortWithError(419, errors.New("could not create cookies for successfully created jwt tokens")); err != nil {
+			return
+		}
+		return
 	}
 	matchingUser.UpdatedAt, err = time.Parse(time.RFC850, time.Now().Format(time.RFC850))
 
