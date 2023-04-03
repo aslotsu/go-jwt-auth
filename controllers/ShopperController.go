@@ -103,7 +103,7 @@ func LoginShopper(c *gin.Context) {
 	var matchingUser models.User
 	searchResult := shopperCollection.FindOne(ctx,
 		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser)
-	log.Println(searchResult)
+	log.Println("Juju", searchResult)
 
 	emailExists, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "email", Value: shopper.Email}})
 	if err != nil {

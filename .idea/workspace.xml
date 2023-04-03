@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.47" />
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.48" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +103,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing" />
     <MESSAGE value="cors fixing 2" />
     <MESSAGE value="cors fixing 2,1" />
     <MESSAGE value="cors fixing 2.1.1" />
@@ -128,7 +127,8 @@
     <MESSAGE value="cors fixing 2.1.45" />
     <MESSAGE value="cors fixing 2.1.46" />
     <MESSAGE value="cors fixing 2.1.47" />
-    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.47" />
+    <MESSAGE value="cors fixing 2.1.48" />
+    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.48" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
