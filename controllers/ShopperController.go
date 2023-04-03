@@ -101,9 +101,10 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 	var matchingUser models.User
-	searchResult := shopperCollection.FindOne(ctx,
-		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser)
-	log.Println("Juju", searchResult)
+	if err := shopperCollection.FindOne(ctx,
+		bson.D{{Key: "email", Value: shopper.Email}}).Decode(&matchingUser); err != nil {
+		log.Println("Could not perform search to get matching user")
+	}
 
 	emailExists, err := shopperCollection.CountDocuments(ctx, bson.D{{Key: "email", Value: shopper.Email}})
 	if err != nil {
