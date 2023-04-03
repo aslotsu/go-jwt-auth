@@ -104,7 +104,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
 		Name:   "RefreshToken",
@@ -114,7 +114,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
