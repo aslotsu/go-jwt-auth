@@ -85,22 +85,6 @@ func SignUpShopper(c *gin.Context) {
 		log.Panic(err)
 		return
 	}
-	authToken, refreshToken, err := helpers.GenerateAllTokens(shopper)
-	if err != nil {
-		log.Println("Could not generate tokens", err)
-		if c.AbortWithError(408, errors.New("could not generate auth and refresh tokens")) != nil {
-			return
-		}
-		return
-	}
-
-	if err := helpers.CreateCookiesForTokens(c, authToken, refreshToken); err != nil {
-		log.Println(err)
-		if c.AbortWithError(500, errors.New("could not create cookies for auth and refresh tokens")) != nil {
-			return
-		}
-		return
-	}
 	c.JSON(201, gin.H{"success": result.InsertedID})
 
 }
@@ -160,10 +144,7 @@ func LoginShopper(c *gin.Context) {
 	matchingUser.UpdatedAt, err = time.Parse(time.RFC850, time.Now().Format(time.RFC850))
 
 	if err != nil {
-		//if err := c.AbortWithError(405,
-		//	errors.New("unable to set time of update, request incomplete")); err != nil {
-		//	return
-		//}
+
 		log.Println("Error setting time of update", err)
 		return
 	}
@@ -179,10 +160,6 @@ func LoginShopper(c *gin.Context) {
 		Decode(&matchingUser); err != nil {
 		log.Println("Error matching user, some credentials may be incorrect", err)
 		return
-	}
-
-	if err != nil {
-
 	}
 	c.JSON(200, matchingUser)
 }

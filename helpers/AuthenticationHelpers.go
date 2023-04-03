@@ -76,8 +76,8 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 		MaxAge:   300,
 		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
-		HttpOnly: true,
-		Secure:   true,
+		HttpOnly: false,
+		Secure:   false,
 	}
 
 	refreshCookie := http.Cookie{
@@ -87,8 +87,8 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
 		Path:     "/",
-		HttpOnly: true,
-		Secure:   true,
+		HttpOnly: false,
+		Secure:   false,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
@@ -97,14 +97,14 @@ func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
 
 func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) error {
 	authCookie := http.Cookie{
-		Name:   "gogaga",
+		Name:   "AuthToken",
 		Value:  authToken,
 		Path:   "/",
 		MaxAge: 300,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: true,
-		Secure:   true,
+		HttpOnly: false,
+		Secure:   false,
 	}
 	refreshCookie := http.Cookie{
 		Name:   "minigogo",
@@ -113,8 +113,8 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge: 3600,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: true,
-		Secure:   true,
+		HttpOnly: false,
+		Secure:   false,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
