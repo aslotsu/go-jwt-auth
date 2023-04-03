@@ -180,7 +180,7 @@ func GetUser(c *gin.Context) {
 	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	//defer cancel()
 
-	authTokenPointer, err := c.Request.Cookie("AuthToken")
+	authTokenPointer, err := http.Request.Cookie(*c.Request, "AuthToken")
 	if err == http.ErrNoCookie {
 		log.Println("AuthToken is not stored on client maybe")
 	}
