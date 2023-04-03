@@ -7,6 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
+	"net/http"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
@@ -170,6 +171,22 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 	c.JSON(200, matchingUser)
+}
+
+func GetUser(c *gin.Context) {
+	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	//defer cancel()
+
+	authTokenPointer, err := c.Request.Cookie("AuthToken")
+	if err == http.ErrNoCookie {
+		log.Println("AuthToken is not stored on client maybe")
+	}
+	if err != nil {
+		log.Println(err)
+		log.Println(authTokenPointer.Value)
+	}
+	log.Println("We found the cookie!!!!!!")
+
 }
 
 func LogoutShopper(c *gin.Context) {

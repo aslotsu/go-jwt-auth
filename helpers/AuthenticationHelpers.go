@@ -103,7 +103,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge: 300,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
@@ -113,7 +113,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge: 3600,
 		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 
