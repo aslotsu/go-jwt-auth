@@ -134,7 +134,7 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
+	//signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
 	if err != nil {
 		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
 			return
@@ -154,7 +154,7 @@ func LoginShopper(c *gin.Context) {
 		log.Println("Unable to extract _id from hex", err)
 		return
 	}
-	helpers.UpdateAllTokens(c, signedAuthToken, signedRefreshToken)
+	//helpers.UpdateAllTokens(c, signedAuthToken, signedRefreshToken)
 	if err := shopperCollection.FindOne(ctx, bson.D{{Key: "_id", Value: matchingId},
 		{Key: "email", Value: matchingUser.Email}, {Key: "phone", Value: matchingUser.Phone}}).
 		Decode(&matchingUser); err != nil {
