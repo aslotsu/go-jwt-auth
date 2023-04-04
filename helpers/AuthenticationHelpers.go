@@ -74,8 +74,9 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Value:    authToken,
 		Path:     "/",
 		MaxAge:   300,
+		Domain:   ".railway.app",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
@@ -83,8 +84,9 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Value:    refreshToken,
 		Path:     "/",
 		MaxAge:   3600,
+		Domain:   ".railway.app",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: false,
+		HttpOnly: true,
 		Secure:   true,
 	}
 
@@ -99,11 +101,14 @@ func NullifyAllCookies(c *gin.Context) {
 	authCookie := http.Cookie{
 		Name:    "AuthToken",
 		Value:   "",
+		Domain:  ".railway.app",
 		Expires: time.Now().Add(-1000 * time.Hour),
 	}
 	refreshCookie := http.Cookie{
-		Name:    "RefreshToken",
-		Value:   "",
+		Name:   "RefreshToken",
+		Value:  "",
+		Domain: ".railway.app",
+
 		Expires: time.Now().Add(-1000 * time.Hour),
 	}
 
