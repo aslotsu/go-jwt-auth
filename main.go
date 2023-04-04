@@ -14,7 +14,7 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"https://trains-production.up.railway.app/",
+			"https://trains-production.up.railway.app",
 			//"https://trains-git-main-aslotsu.vercel.app",
 			//"https://go-jwt-auth-production.up.railway.app"
 		},
