@@ -15,8 +15,9 @@ func main() {
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
 			"https://trains-production.up.railway.app/",
-			"https://trains-git-main-aslotsu.vercel.app",
-			"https://go-jwt-auth-production.up.railway.app"},
+			//"https://trains-git-main-aslotsu.vercel.app",
+			//"https://go-jwt-auth-production.up.railway.app"
+		},
 		AllowMethods:     []string{"POST", "OPTIONS", "GET", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "content-type", "Set-Cookie", "Authorization", "Accept"},
 		ExposeHeaders:    []string{"Origin", "Content-Length", "Content-Type", "content-type", "Set-Cookie", "Authorization", "Accept"},
