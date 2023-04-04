@@ -22,7 +22,7 @@ func main() {
 		ExposeHeaders:    []string{"Origin", "Content-Length", "Content-Type", "content-type", "Set-Cookie", "Authorization", "Accept"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
-			return origin == "https://trains-git-main-aslotsu.vercel.app"
+			return origin == "https://trains-git-main-aslotsu.vercel.app" || origin == "https://trains-production.up.railway.app/"
 		},
 		MaxAge: 12 * time.Hour,
 	}))
