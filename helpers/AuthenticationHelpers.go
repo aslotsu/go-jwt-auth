@@ -76,7 +76,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge:   300,
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
@@ -85,7 +85,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge:   3600,
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   false,
+		Secure:   true,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
