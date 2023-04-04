@@ -68,33 +68,6 @@ func GenerateAllTokens(shopper models.User) (string, string, error) {
 	return signedAuthToken, signedRefreshToken, err
 }
 
-//func UpdateAllTokens(c *gin.Context, authToken, refreshToken string) {
-//	authCookie := http.Cookie{
-//		Name:  "AuthToken",
-//		Value: authToken,
-//		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
-//		MaxAge:   300,
-//		SameSite: http.SameSiteNoneMode,
-//		Path:     "/",
-//		HttpOnly: false,
-//		Secure:   false,
-//	}
-//
-//	refreshCookie := http.Cookie{
-//		Name:   "RefreshToken",
-//		Value:  refreshToken,
-//		MaxAge: 3600,
-//		//Domain:   "https://trains-git-main-aslotsu.vercel.app/",
-//		SameSite: http.SameSiteNoneMode,
-//		Path:     "/",
-//		HttpOnly: false,
-//		Secure:   false,
-//	}
-//
-//	http.SetCookie(c.Writer, &authCookie)
-//	http.SetCookie(c.Writer, &refreshCookie)
-//}
-
 func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) error {
 	authCookie := http.Cookie{
 		Name:     "AuthToken",

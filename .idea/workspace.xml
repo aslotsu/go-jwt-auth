@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.64">
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +107,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing 2.1.39" />
     <MESSAGE value="cors fixing 2.1.40" />
     <MESSAGE value="cors fixing 2.1.41" />
     <MESSAGE value="cors fixing 2.1.42" />
@@ -131,7 +131,8 @@
     <MESSAGE value="cors fixing 2.1.62" />
     <MESSAGE value="cors fixing 2.1.63" />
     <MESSAGE value="cors fixing 2.1.64" />
-    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.64" />
+    <MESSAGE value="cors fixing 2.1.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.5" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
