@@ -104,7 +104,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Domain:   "go-jwt-auth-production.up.railway.app",
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   true,
+		Secure:   false,
 	}
 	refreshCookie := http.Cookie{
 		Name:     "RefreshToken",
@@ -114,7 +114,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Domain:   "go-jwt-auth-production.up.railway.app/",
 		SameSite: http.SameSiteNoneMode,
 		HttpOnly: false,
-		Secure:   true,
+		Secure:   false,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
