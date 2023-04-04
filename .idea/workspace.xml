@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.49">
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.59">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,15 +106,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing 2,1" />
-    <MESSAGE value="cors fixing 2.1.1" />
-    <MESSAGE value="cors fixing 2.1.2" />
-    <MESSAGE value="cors fixing 2.1.23" />
-    <MESSAGE value="cors fixing 2.1.24" />
-    <MESSAGE value="cors fixing 2.1.2j" />
-    <MESSAGE value="cors fixing 2.1.28" />
-    <MESSAGE value="cors fixing 2.1.29" />
-    <MESSAGE value="cors fixing 2.1.30" />
     <MESSAGE value="cors fixing 2.1.31" />
     <MESSAGE value="cors fixing 2.1.32" />
     <MESSAGE value="cors fixing 2.1.324" />
@@ -130,7 +122,16 @@
     <MESSAGE value="cors fixing 2.1.47" />
     <MESSAGE value="cors fixing 2.1.48" />
     <MESSAGE value="cors fixing 2.1.49" />
-    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.49" />
+    <MESSAGE value="cors fixing 2.1.50" />
+    <MESSAGE value="cors fixing 2.1.51" />
+    <MESSAGE value="cors fixing 2.1.52" />
+    <MESSAGE value="cors fixing 2.1.54" />
+    <MESSAGE value="cors fixing 2.1.55" />
+    <MESSAGE value="cors fixing 2.1.56" />
+    <MESSAGE value="cors fixing 2.1.57" />
+    <MESSAGE value="cors fixing 2.1.58" />
+    <MESSAGE value="cors fixing 2.1.59" />
+    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.59" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
