@@ -116,7 +116,17 @@ func NullifyAllCookies(c *gin.Context) error {
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
+	newAuthCookie, err := c.Cookie("AuthToken")
+	if err != nil {
+		log.Println("Unable to find this cookie", err)
+	}
+	log.Println("Logout attempted, new auth cookie value is", newAuthCookie)
 	http.SetCookie(c.Writer, &refreshCookie)
+	newRefreshCookie, err := c.Cookie("RefreshToken")
+	if err != nil {
+		log.Println("Unable to find this cookie", err)
+	}
+	log.Println("Logout attempted, new auth cookie value is", newRefreshCookie)
 
 	return nil
 }
