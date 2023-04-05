@@ -97,14 +97,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 }
 
 func NullifyAllCookies(c *gin.Context) error {
-	unwantedCookie, err := c.Cookie("AuthToken")
-	if err != nil {
-		log.Println("cannot even find the old cookie", err)
-	}
-	_ = unwantedCookie
-	if err == http.ErrNoCookie {
-		_ = unwantedCookie
-	}
+
 	authCookie := http.Cookie{
 		Name:    "AuthToken",
 		Value:   "",
@@ -123,17 +116,8 @@ func NullifyAllCookies(c *gin.Context) error {
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
-	newAuthCookie, err := c.Cookie("AuthToken")
-	if err != nil {
-		log.Println("Unable to find this cookie", err)
-	}
-	log.Println("Logout attempted, new auth cookie value is", newAuthCookie)
+
 	http.SetCookie(c.Writer, &refreshCookie)
-	newRefreshCookie, err := c.Cookie("RefreshToken")
-	if err != nil {
-		log.Println("Unable to find this cookie", err)
-	}
-	log.Println("Logout attempted, new auth cookie value is", newRefreshCookie)
 
 	return nil
 }
