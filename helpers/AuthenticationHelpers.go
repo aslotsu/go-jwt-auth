@@ -97,33 +97,33 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 	return nil
 }
 
-func NullifyAllCookies(c *gin.Context) {
+func NullifyAllCookies(c *gin.Context) error {
 	cookie.ClearCookie(c.Writer, "AuthToken", "/")
 	cookie.ClearCookie(c.Writer, "RefreshToken", "/")
-	//authCookie := http.Cookie{
-	//	Name:    "AuthToken",
-	//	Value:   "",
-	//	Path:    "/",
-	//	MaxAge:  10,
-	//	Expires: time.Now().Add(-100 * time.Hour),
-	//	Domain:  ".railway.app",
-	//	Secure:  true,
-	//}
-	//refreshCookie := http.Cookie{
-	//	Name:    "RefreshToken",
-	//	Value:   "",
-	//	Path:    "/",
-	//	MaxAge:  10,
-	//	Expires: time.Now().Add(-100 * time.Hour),
-	//	Domain:  ".railway.app",
-	//	Secure:  true,
-	//}
-	//
-	//http.SetCookie(c.Writer, &authCookie)
-	//
-	//http.SetCookie(c.Writer, &refreshCookie)
-	//
-	//return nil
+	authCookie := http.Cookie{
+		Name:    "gaga",
+		Value:   "",
+		Path:    "/",
+		MaxAge:  100,
+		Expires: time.Now().Add(-100 * time.Hour),
+		Domain:  ".railway.app",
+		Secure:  true,
+	}
+	refreshCookie := http.Cookie{
+		Name:    "boom",
+		Value:   "",
+		Path:    "/",
+		MaxAge:  100,
+		Expires: time.Now().Add(-100 * time.Hour),
+		Domain:  ".railway.app",
+		Secure:  true,
+	}
+
+	http.SetCookie(c.Writer, &authCookie)
+
+	http.SetCookie(c.Writer, &refreshCookie)
+
+	return nil
 }
 
 func VerifyPassword(hashed, password string) (bool, string) {

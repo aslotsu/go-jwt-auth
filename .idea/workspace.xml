@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.85">
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.86">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/AuthenticationHelpers.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +20,9 @@
     </option>
   </component>
   <component name="GOROOT" url="file:///usr/lib/go" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/go/pkg/mod/github.com/xyproto/cookie/v2@v2.2.3/cookie.go" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -106,7 +108,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing 2.1.64" />
     <MESSAGE value="cors fixing 2.1.5" />
     <MESSAGE value="cors fixing 2.1.62" />
     <MESSAGE value="cors fixing 2.1.63" />
@@ -131,7 +132,8 @@
     <MESSAGE value="cors fixing 2.1.83" />
     <MESSAGE value="cors fixing 2.1.84" />
     <MESSAGE value="cors fixing 2.1.85" />
-    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.85" />
+    <MESSAGE value="cors fixing 2.1.86" />
+    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.86" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
