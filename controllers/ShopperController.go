@@ -154,7 +154,6 @@ func LoginShopper(c *gin.Context) {
 	matchingUser.UpdatedAt, err = time.Parse(time.RFC850, time.Now().Format(time.RFC850))
 
 	if err != nil {
-
 		log.Println("Error setting time of update", err)
 		return
 	}
@@ -199,4 +198,5 @@ func LogoutShopper(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 	}
+	c.JSON(301, "Successfully created your delete cookies")
 }
