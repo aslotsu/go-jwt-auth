@@ -99,18 +99,20 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 func NullifyAllCookies(c *gin.Context) error {
 
 	authCookie := http.Cookie{
-		Name:   "AuthToken",
-		Value:  "",
-		Path:   "/",
-		MaxAge: -200,
-		Domain: ".railway.app",
+		Name:    "AuthToken",
+		Value:   "",
+		Path:    "/",
+		MaxAge:  0,
+		Expires: time.Now().Add(-100 * time.Hour),
+		Domain:  ".railway.app",
 	}
 	refreshCookie := http.Cookie{
-		Name:   "RefreshToken",
-		Value:  "",
-		Path:   "/",
-		MaxAge: -1000,
-		Domain: ".railway.app",
+		Name:    "RefreshToken",
+		Value:   "",
+		Path:    "/",
+		MaxAge:  0,
+		Expires: time.Now().Add(-100 * time.Hour),
+		Domain:  ".railway.app",
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
