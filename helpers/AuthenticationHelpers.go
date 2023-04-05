@@ -97,7 +97,14 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 }
 
 func NullifyAllCookies(c *gin.Context) error {
-
+	unwantedCookie, err := c.Cookie("AuthToken")
+	if err != nil {
+		log.Println("cannot even find the old cookie", err)
+	}
+	_ = unwantedCookie
+	if err == http.ErrNoCookie {
+		_ = unwantedCookie
+	}
 	authCookie := http.Cookie{
 		Name:    "AuthToken",
 		Value:   "",
