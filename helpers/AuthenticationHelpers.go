@@ -102,14 +102,14 @@ func NullifyAllCookies(c *gin.Context) {
 		Name:   "AuthToken",
 		Value:  "",
 		Path:   "/",
-		Domain: ".railway.app",
+		Domain: "railway.app",
 		MaxAge: -3000,
 	}
 	refreshCookie := http.Cookie{
 		Name:   "RefreshToken",
 		Value:  "",
 		Path:   "/",
-		Domain: ".railway.app",
+		Domain: "railway.app",
 		MaxAge: -3000,
 	}
 
