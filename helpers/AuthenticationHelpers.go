@@ -115,6 +115,8 @@ func NullifyAllCookies(c *gin.Context) {
 
 	http.SetCookie(c.Writer, &authCookie)
 	http.SetCookie(c.Writer, &refreshCookie)
+	log.Println(authCookie.Value)
+	log.Println(refreshCookie.Value)
 }
 
 func VerifyPassword(hashed, password string) (bool, string) {
