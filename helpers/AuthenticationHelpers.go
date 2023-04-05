@@ -76,7 +76,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge:   300,
 		Domain:   ".railway.app",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: true,
+		HttpOnly: false,
 		Secure:   true,
 	}
 	refreshCookie := http.Cookie{
@@ -86,7 +86,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		MaxAge:   3600,
 		Domain:   ".railway.app",
 		SameSite: http.SameSiteNoneMode,
-		HttpOnly: true,
+		HttpOnly: false,
 		Secure:   true,
 	}
 
