@@ -195,5 +195,8 @@ func GetUser(c *gin.Context) {
 }
 
 func LogoutShopper(c *gin.Context) {
-	helpers.NullifyAllCookies(c)
+	err := helpers.NullifyAllCookies(c)
+	if err != nil {
+		log.Println(err)
+	}
 }
