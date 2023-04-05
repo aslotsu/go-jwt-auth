@@ -53,7 +53,7 @@ func SignUpShopper(c *gin.Context) {
 
 	if samePhone > 0 {
 		log.Println("This phone already exists")
-		c.JSON(409, "phone already exists in db")
+		//c.JSON(409, "phone already exists in db")
 		if c.AbortWithError(409, errors.New("this phone number exists in the database")) != nil {
 			return
 		}
