@@ -75,7 +75,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Path:     "/",
 		MaxAge:   300,
 		Domain:   ".railway.app",
-		SameSite: http.SameSiteNoneMode,
+		SameSite: http.SameSiteStrictMode,
 		HttpOnly: false,
 		Secure:   true,
 	}
@@ -85,7 +85,7 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 		Path:     "/",
 		MaxAge:   3600,
 		Domain:   ".railway.app",
-		SameSite: http.SameSiteNoneMode,
+		SameSite: http.SameSiteStrictMode,
 		HttpOnly: false,
 		Secure:   true,
 	}
