@@ -3,6 +3,7 @@ package helpers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/xyproto/cookie/v2"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
@@ -96,32 +97,33 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 	return nil
 }
 
-func NullifyAllCookies(c *gin.Context) error {
-
-	authCookie := http.Cookie{
-		Name:    "AuthToken",
-		Value:   "",
-		Path:    "/",
-		MaxAge:  10,
-		Expires: time.Now().Add(-100 * time.Hour),
-		Domain:  ".railway.app",
-		Secure:  true,
-	}
-	refreshCookie := http.Cookie{
-		Name:    "RefreshToken",
-		Value:   "",
-		Path:    "/",
-		MaxAge:  10,
-		Expires: time.Now().Add(-100 * time.Hour),
-		Domain:  ".railway.app",
-		Secure:  true,
-	}
-
-	http.SetCookie(c.Writer, &authCookie)
-
-	http.SetCookie(c.Writer, &refreshCookie)
-
-	return nil
+func NullifyAllCookies(c *gin.Context) {
+	cookie.ClearCookie(c.Writer, "AuthToken", "/")
+	cookie.ClearCookie(c.Writer, "RefreshToken", "/")
+	//authCookie := http.Cookie{
+	//	Name:    "AuthToken",
+	//	Value:   "",
+	//	Path:    "/",
+	//	MaxAge:  10,
+	//	Expires: time.Now().Add(-100 * time.Hour),
+	//	Domain:  ".railway.app",
+	//	Secure:  true,
+	//}
+	//refreshCookie := http.Cookie{
+	//	Name:    "RefreshToken",
+	//	Value:   "",
+	//	Path:    "/",
+	//	MaxAge:  10,
+	//	Expires: time.Now().Add(-100 * time.Hour),
+	//	Domain:  ".railway.app",
+	//	Secure:  true,
+	//}
+	//
+	//http.SetCookie(c.Writer, &authCookie)
+	//
+	//http.SetCookie(c.Writer, &refreshCookie)
+	//
+	//return nil
 }
 
 func VerifyPassword(hashed, password string) (bool, string) {
