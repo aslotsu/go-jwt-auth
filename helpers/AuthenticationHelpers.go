@@ -41,14 +41,14 @@ func GenerateAllTokens(shopper models.User) (string, string, error) {
 		UserType: shopper.Role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: &jwt.NumericDate{
-				Time: time.Now().Add(time.Minute * 30),
+				Time: time.Now().Add(time.Minute * 1800),
 			},
 		},
 	}
 	refreshClaims := &SignedDetails{
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: &jwt.NumericDate{
-				Time: time.Now().Add(time.Hour * 168),
+				Time: time.Now().Add(time.Hour),
 			},
 		},
 	}
