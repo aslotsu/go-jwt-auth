@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.86">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="cors fixing 2.1.87" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +106,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing 2.1.5" />
     <MESSAGE value="cors fixing 2.1.62" />
     <MESSAGE value="cors fixing 2.1.63" />
     <MESSAGE value="cors fixing 2.1.65" />
@@ -133,7 +130,8 @@
     <MESSAGE value="cors fixing 2.1.84" />
     <MESSAGE value="cors fixing 2.1.85" />
     <MESSAGE value="cors fixing 2.1.86" />
-    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.86" />
+    <MESSAGE value="cors fixing 2.1.87" />
+    <option name="LAST_COMMIT_MESSAGE" value="cors fixing 2.1.87" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

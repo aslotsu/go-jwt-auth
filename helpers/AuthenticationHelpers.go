@@ -101,22 +101,22 @@ func NullifyAllCookies(c *gin.Context) error {
 	cookie.ClearCookie(c.Writer, "AuthToken", "/")
 	cookie.ClearCookie(c.Writer, "RefreshToken", "/")
 	authCookie := http.Cookie{
-		Name:    "gaga",
-		Value:   "",
-		Path:    "/",
-		MaxAge:  100,
-		Expires: time.Now().Add(-100 * time.Hour),
-		Domain:  ".railway.app",
-		Secure:  true,
+		Name:   "gaga",
+		Value:  "gagabobo",
+		Path:   "/",
+		MaxAge: 100,
+		//Expires: time.Now().Add(-100 * time.Hour),
+		Domain: ".railway.app",
+		Secure: true,
 	}
 	refreshCookie := http.Cookie{
-		Name:    "boom",
-		Value:   "",
-		Path:    "/",
-		MaxAge:  100,
-		Expires: time.Now().Add(-100 * time.Hour),
-		Domain:  ".railway.app",
-		Secure:  true,
+		Name:   "boom",
+		Value:  "sweetheart",
+		Path:   "/",
+		MaxAge: 100,
+		//Expires: time.Now().Add(-100 * time.Hour),
+		Domain: ".railway.app",
+		Secure: true,
 	}
 
 	http.SetCookie(c.Writer, &authCookie)
