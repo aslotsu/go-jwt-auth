@@ -215,7 +215,7 @@ func GetUser(c *gin.Context) {
 	log.Println("We found the cookie!!!!!!")
 	log.Println(authTokenPointer.Value)
 
-	claims, msg := ValidateToken(authTokenPointer.String())
+	claims, msg := ValidateToken(authTokenPointer.Value)
 	log.Println(msg)
 	log.Println(claims.RegisteredClaims.Issuer)
 
