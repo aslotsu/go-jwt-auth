@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -183,13 +182,12 @@ func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string
 		return []byte(os.Getenv("SECRET_KEY")), nil
 	})
 	if err != nil {
+		log.Println("Unable to parse token, it might be invalid")
 		return
 	}
 	claims, ok := token.Claims.(helpers.SignedDetails)
 	if !ok {
-		msg = fmt.Sprint("The token is invalid")
-		msg = err.Error()
-		return
+		log.Println("Could not get claims from token")
 	}
 	//if *claims.ExpiresAt.Time < time.Now().Local().Unix( {
 	//	msg = fmt.Sprintf("token is expired")
