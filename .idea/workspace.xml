@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="claims type updated v1.1.3">
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="claims type updated v1.1.4">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ShopperController.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ShopperController.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +109,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing 2.1.84" />
     <MESSAGE value="cors fixing 2.1.85" />
     <MESSAGE value="cors fixing 2.1.86" />
     <MESSAGE value="cors fixing 2.1.87" />
@@ -133,7 +133,8 @@
     <MESSAGE value="claims type updated v1.1.1" />
     <MESSAGE value="claims type updated v1.1.2" />
     <MESSAGE value="claims type updated v1.1.3" />
-    <option name="LAST_COMMIT_MESSAGE" value="claims type updated v1.1.3" />
+    <MESSAGE value="claims type updated v1.1.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="claims type updated v1.1.4" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

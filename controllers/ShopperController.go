@@ -137,7 +137,7 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	SignedAuthToken, SignedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
+	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
 
 	if err != nil {
 		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
@@ -145,7 +145,7 @@ func LoginShopper(c *gin.Context) {
 		}
 		log.Println("Unable to generate tokens", err)
 	}
-	if err := helpers.CreateCookiesForTokens(c, SignedAuthToken, SignedRefreshToken); err != nil {
+	if err := helpers.CreateCookiesForTokens(c, signedAuthToken, signedRefreshToken); err != nil {
 		if err := c.AbortWithError(419, errors.New("could not create cookies for successfully created jwt tokens")); err != nil {
 			return
 		}
@@ -188,26 +188,26 @@ func LoginShopper(c *gin.Context) {
 	//}
 	//log.Println("We found the cookie!!!!!!")
 	//log.Println(authTokenPointer.Value)
-
-	claims, ok := ValidateToken(SignedAuthToken)
-	if ok == "" {
-		log.Println("Looks like we may be able to continue")
+	claims, result := ValidateToken(signedAuthToken)
+	if result == "" {
+		log.Println("Seems alright")
 	}
-	log.Println("Issuer", claims.RegisteredClaims.Issuer)
+	log.Println("Email", claims.Email)
+
 	c.JSON(200, matchingUser)
 }
-
-func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string) {
-	tokenWithId, err := jwt.ParseWithClaims(signedToken, helpers.SignedDetails{}, func(token *jwt.Token) (interface{}, error) {
+func ValidateToken(token string) (claims *helpers.SignedDetails, result string) {
+	finalToken, err := jwt.ParseWithClaims(token, &helpers.SignedDetails{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("SECRET_KEY")), nil
 	})
 	if err != nil {
-		log.Println("Thee was an error getting the token to fish out the ID")
-		return
+		log.Println(err)
 	}
-	//tokenWithId = jwt.Token{Claims: claims
-	_ = tokenWithId
-	return
+	claims, ok := finalToken.Claims.(*helpers.SignedDetails)
+	if !ok {
+		log.Println("Unable to parse token")
+	}
+	return claims, result
 }
 
 func GetUser(c *gin.Context) {
