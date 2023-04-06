@@ -200,7 +200,7 @@ func GetUser(c *gin.Context) {
 		log.Println("Unable to get auth token", err)
 	}
 
-	claims := authToken.Claims.(jwt.RegisteredClaims)
+	claims := authToken.Claims.(*jwt.RegisteredClaims)
 	//var user models.User
 	log.Println("Found issuer value", claims.Issuer)
 
