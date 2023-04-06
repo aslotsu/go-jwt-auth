@@ -192,7 +192,7 @@ func LoginShopper(c *gin.Context) {
 	if result == "" {
 		log.Println("Seems alright")
 	}
-	log.Println("Email", claims.Email)
+	log.Println("Email", claims.UserId)
 
 	c.JSON(200, matchingUser)
 }
