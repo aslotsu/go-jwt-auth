@@ -191,9 +191,8 @@ func LoginShopper(c *gin.Context) {
 
 	claims, ok := ValidateToken(SignedAuthToken)
 	if ok == "" {
-		log.Println("Something went wrong when trying to validate token")
+		log.Println("Looks like we may be able to continue")
 	}
-	log.Println(msg)
 	log.Println(claims.RegisteredClaims.Issuer)
 	c.JSON(200, matchingUser)
 }
@@ -204,14 +203,16 @@ func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string
 	})
 	if err != nil {
 		log.Println("Unable to parse token, it might be invalid")
+		msg = "Unable to parse token"
 		return
 	}
 
 	claims, ok := token.Claims.(helpers.SignedDetails)
-	if ok {
+	if !ok {
 		log.Println("Could not get claims from token")
 		return
 	}
+	msg = ""
 	//if *claims.ExpiresAt.Time < time.Now().Local().Unix( {
 	//	msg = fmt.Sprintf("token is expired")
 	//	return
