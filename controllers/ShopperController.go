@@ -198,7 +198,7 @@ func LoginShopper(c *gin.Context) {
 }
 
 func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string) {
-	tokenWithId, err := jwt.ParseWithClaims(signedToken, jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+	tokenWithId, err := jwt.ParseWithClaims(signedToken, helpers.SignedDetails{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("SECRET_KEY")), nil
 	})
 	if err != nil {
