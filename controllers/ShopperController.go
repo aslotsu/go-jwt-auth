@@ -193,7 +193,7 @@ func GetUser(c *gin.Context) {
 	}
 	log.Println("We found the cookie!!!!!!")
 
-	authToken, err := jwt.ParseWithClaims(authTokenPointer.Value, jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+	authToken, err := jwt.ParseWithClaims(authTokenPointer.Value, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("SECRET_KEY")), nil
 	})
 	if err != nil {
