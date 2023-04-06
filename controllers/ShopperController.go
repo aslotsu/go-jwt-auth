@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
+	"net/http"
 	"os"
 	"time"
 	"user-auth/database"
@@ -218,6 +219,19 @@ func ValidateToken(token string) (claims *helpers.SignedDetails, result string) 
 }
 
 func GetUser(c *gin.Context) {
+	signedAuthToken, err := c.Request.Cookie("AuthToken")
+	if err == http.ErrNoCookie {
+		log.Println("That cookie cannot be found")
+		return
+	}
+	_ = signedAuthToken
+	claims, result := ValidateToken(signedAuthToken.Value)
+	if result != "" {
+		log.Println("We have work to do")
+	}
+	log.Println("We are back in business")
+
+	log.Println("Matching User ID", claims.UserId)
 
 }
 
