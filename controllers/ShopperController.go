@@ -174,33 +174,18 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	//getting user and setting user as active
-	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-	//defer cancel()
-
-	//authTokenPointer, err := c.Request.Cookie("AuthToken")
-	//if err == http.ErrNoCookie {
-	//	log.Println("AuthToken is not stored on client maybe")
-	//	return
-	//}
-	//if err != nil {
-	//	log.Println(err)
-	//	return
-	//}
-	//log.Println("We found the cookie!!!!!!")
-	//log.Println(authTokenPointer.Value)
 	claims, result := ValidateToken(signedAuthToken)
 	if result == "" {
 		log.Println("Seems alright")
 	}
 	log.Println("Email", claims.UserId)
-	correctUserID, err := primitive.ObjectIDFromHex(claims.UserId)
-	if err != nil {
-		log.Println("We need to check the user ID again")
-	}
-	if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
-		log.Println(err)
-	}
+	//correctUserID, err := primitive.ObjectIDFromHex(claims.UserId)
+	//if err != nil {
+	//	log.Println("We need to check the user ID again")
+	//}
+	//if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
+	//	log.Println(err)
+	//}
 
 	c.JSON(200, matchingUser)
 }
@@ -219,12 +204,15 @@ func ValidateToken(token string) (claims *helpers.SignedDetails, result string) 
 }
 
 func GetUser(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	defer cancel()
+	var matchingUser models.User
 	signedAuthToken, err := c.Request.Cookie("AuthToken")
 	if err == http.ErrNoCookie {
 		log.Println("That cookie cannot be found")
 		return
 	}
-	_ = signedAuthToken
+
 	claims, result := ValidateToken(signedAuthToken.Value)
 	if result != "" {
 		log.Println("We have work to do")
@@ -232,6 +220,13 @@ func GetUser(c *gin.Context) {
 	log.Println("We are back in business")
 
 	log.Println("Matching User ID", claims.UserId)
+	correctUserID, err := primitive.ObjectIDFromHex(claims.UserId)
+	if err != nil {
+		log.Println("We need to check the user ID again")
+	}
+	if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
+		log.Println(err)
+	}
 
 }
 
