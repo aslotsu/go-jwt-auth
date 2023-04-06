@@ -32,7 +32,7 @@ func HashPassword(rawPassword string) string {
 	return string(hashedPassword)
 }
 
-func GenerateAllTokens(shopper models.User, userId string) (string, string, error) {
+func GenerateAllTokens(shopper models.User) (string, string, error) {
 	authClaims := &SignedDetails{
 		FullName: shopper.FullName,
 		Email:    shopper.Email,
@@ -40,7 +40,7 @@ func GenerateAllTokens(shopper models.User, userId string) (string, string, erro
 		UserId:   shopper.UserID,
 		UserType: shopper.Role,
 		RegisteredClaims: jwt.RegisteredClaims{
-			Issuer: userId,
+			Issuer: shopper.UserID,
 			ExpiresAt: &jwt.NumericDate{
 				Time: time.Now().Add(time.Minute * 1800),
 			},

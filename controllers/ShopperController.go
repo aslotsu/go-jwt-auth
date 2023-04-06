@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
-	"net/http"
 	"os"
 	"time"
 	"user-auth/database"
@@ -138,7 +137,7 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	SignedAuthToken, SignedRefreshToken, err := helpers.GenerateAllTokens(matchingUser, matchingUser.UserID)
+	SignedAuthToken, SignedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
 
 	if err != nil {
 		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
@@ -174,6 +173,28 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
+	//getting user and setting user as active
+	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+	//defer cancel()
+
+	//authTokenPointer, err := c.Request.Cookie("AuthToken")
+	//if err == http.ErrNoCookie {
+	//	log.Println("AuthToken is not stored on client maybe")
+	//	return
+	//}
+	//if err != nil {
+	//	log.Println(err)
+	//	return
+	//}
+	//log.Println("We found the cookie!!!!!!")
+	//log.Println(authTokenPointer.Value)
+
+	claims, ok := ValidateToken(SignedAuthToken)
+	if ok == "" {
+		log.Println("Something went wrong when trying to validate token")
+	}
+	log.Println(msg)
+	log.Println(claims.RegisteredClaims.Issuer)
 	c.JSON(200, matchingUser)
 }
 
@@ -187,7 +208,7 @@ func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string
 	}
 
 	claims, ok := token.Claims.(helpers.SignedDetails)
-	if !ok {
+	if ok {
 		log.Println("Could not get claims from token")
 		return
 	}
@@ -200,24 +221,6 @@ func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string
 }
 
 func GetUser(c *gin.Context) {
-	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
-	//defer cancel()
-
-	authTokenPointer, err := c.Request.Cookie("AuthToken")
-	if err == http.ErrNoCookie {
-		log.Println("AuthToken is not stored on client maybe")
-		return
-	}
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	log.Println("We found the cookie!!!!!!")
-	log.Println(authTokenPointer.Value)
-
-	claims, msg := ValidateToken(authTokenPointer.Value)
-	log.Println(msg)
-	log.Println(claims.RegisteredClaims.Issuer)
 
 }
 
