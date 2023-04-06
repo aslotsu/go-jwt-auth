@@ -193,32 +193,21 @@ func LoginShopper(c *gin.Context) {
 	if ok == "" {
 		log.Println("Looks like we may be able to continue")
 	}
-	log.Println(claims.RegisteredClaims.Issuer)
+	log.Println("Issuer", claims.RegisteredClaims.Issuer)
 	c.JSON(200, matchingUser)
 }
 
 func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string) {
-	token, err := jwt.ParseWithClaims(signedToken, &helpers.SignedDetails{}, func(token *jwt.Token) (interface{}, error) {
+	tokenWithId, err := jwt.ParseWithClaims(signedToken, jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("SECRET_KEY")), nil
 	})
 	if err != nil {
-		log.Println("Unable to parse token, it might be invalid")
-		msg = "Unable to parse token"
+		log.Println("Thee was an error getting the token to fish out the ID")
 		return
 	}
-
-	claims, ok := token.Claims.(helpers.SignedDetails)
-	if !ok {
-		log.Println("Could not get claims from token")
-		return
-	}
-	msg = ""
-	//if *claims.ExpiresAt.Time < time.Now().Local().Unix( {
-	//	msg = fmt.Sprintf("token is expired")
-	//	return
-	//}
-
-	return claims, msg
+	//tokenWithId = jwt.Token{Claims: claims
+	_ = tokenWithId
+	return
 }
 
 func GetUser(c *gin.Context) {
