@@ -4,10 +4,12 @@ import (
 	"context"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"net/http"
+	"os"
 	"time"
 	"user-auth/database"
 	"user-auth/helpers"
@@ -136,7 +138,7 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
+	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser, matchingUser.UserID)
 
 	if err != nil {
 		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
@@ -190,6 +192,17 @@ func GetUser(c *gin.Context) {
 		return
 	}
 	log.Println("We found the cookie!!!!!!")
+
+	authToken, err := jwt.ParseWithClaims(authTokenPointer.Value, jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("SECRET_KEY")), nil
+	})
+	if err != nil {
+		log.Println("Unable to get auth token", err)
+	}
+
+	claims := authToken.Claims.(*jwt.RegisteredClaims)
+	//var user models.User
+	log.Println("Found issuer value", claims.Issuer)
 
 }
 
