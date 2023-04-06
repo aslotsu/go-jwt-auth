@@ -193,6 +193,13 @@ func LoginShopper(c *gin.Context) {
 		log.Println("Seems alright")
 	}
 	log.Println("Email", claims.UserId)
+	correctUserID, err := primitive.ObjectIDFromHex(claims.UserId)
+	if err != nil {
+		log.Println("We need to check the user ID again")
+	}
+	if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
+		log.Println(err)
+	}
 
 	c.JSON(200, matchingUser)
 }
