@@ -138,7 +138,7 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
-	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser, matchingUser.UserID)
+	SignedAuthToken, SignedRefreshToken, err := helpers.GenerateAllTokens(matchingUser, matchingUser.UserID)
 
 	if err != nil {
 		if err := c.AbortWithError(400, errors.New("unable to generate auth and refresh tokens")); err != nil {
@@ -146,7 +146,7 @@ func LoginShopper(c *gin.Context) {
 		}
 		log.Println("Unable to generate tokens", err)
 	}
-	if err := helpers.CreateCookiesForTokens(c, signedAuthToken, signedRefreshToken); err != nil {
+	if err := helpers.CreateCookiesForTokens(c, SignedAuthToken, SignedRefreshToken); err != nil {
 		if err := c.AbortWithError(419, errors.New("could not create cookies for successfully created jwt tokens")); err != nil {
 			return
 		}
@@ -215,7 +215,7 @@ func GetUser(c *gin.Context) {
 	log.Println("We found the cookie!!!!!!")
 	log.Println(authTokenPointer.Value)
 
-	claims, msg := ValidateToken(authTokenPointer.Value)
+	claims, msg := ValidateToken(authTokenPointer.String())
 	log.Println(msg)
 	log.Println(claims.RegisteredClaims.Issuer)
 
