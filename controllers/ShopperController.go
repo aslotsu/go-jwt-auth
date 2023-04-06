@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -177,6 +178,27 @@ func LoginShopper(c *gin.Context) {
 	c.JSON(200, matchingUser)
 }
 
+func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string) {
+	token, err := jwt.ParseWithClaims(signedToken, &helpers.SignedDetails{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("SECRET_KEY")), nil
+	})
+	if err != nil {
+		return
+	}
+	claims, ok := token.Claims.(helpers.SignedDetails)
+	if !ok {
+		msg = fmt.Sprint("The token is invalid")
+		msg = err.Error()
+		return
+	}
+	//if *claims.ExpiresAt.Time < time.Now().Local().Unix( {
+	//	msg = fmt.Sprintf("token is expired")
+	//	return
+	//}
+
+	return claims, msg
+}
+
 func GetUser(c *gin.Context) {
 	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	//defer cancel()
@@ -193,16 +215,9 @@ func GetUser(c *gin.Context) {
 	}
 	log.Println("We found the cookie!!!!!!")
 
-	authToken, err := jwt.ParseWithClaims(authTokenPointer.Value, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(os.Getenv("SECRET_KEY")), nil
-	})
-	if err != nil {
-		log.Println("Unable to get auth token", err)
-	}
-
-	claims := authToken.Claims.(*jwt.RegisteredClaims)
-	//var user models.User
-	log.Println("Found issuer value", claims.Issuer)
+	claims, msg := ValidateToken(authTokenPointer.Value)
+	log.Println(msg)
+	log.Println(claims.RegisteredClaims.Issuer)
 
 }
 
