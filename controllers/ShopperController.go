@@ -185,9 +185,11 @@ func ValidateToken(signedToken string) (claims helpers.SignedDetails, msg string
 		log.Println("Unable to parse token, it might be invalid")
 		return
 	}
+
 	claims, ok := token.Claims.(helpers.SignedDetails)
 	if !ok {
 		log.Println("Could not get claims from token")
+		return
 	}
 	//if *claims.ExpiresAt.Time < time.Now().Local().Unix( {
 	//	msg = fmt.Sprintf("token is expired")
@@ -201,7 +203,7 @@ func GetUser(c *gin.Context) {
 	//ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	//defer cancel()
 
-	authTokenPointer, err := c.Request.Cookie("RefreshToken")
+	authTokenPointer, err := c.Request.Cookie("AuthToken")
 	if err == http.ErrNoCookie {
 		log.Println("AuthToken is not stored on client maybe")
 		return
