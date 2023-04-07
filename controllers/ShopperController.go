@@ -186,8 +186,6 @@ func LoginShopper(c *gin.Context) {
 	//if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
 	//	log.Println(err)
 	//}
-
-	c.JSON(200, matchingUser)
 }
 func ValidateToken(token string) (claims *helpers.SignedDetails, result string) {
 	finalToken, err := jwt.ParseWithClaims(token, &helpers.SignedDetails{}, func(token *jwt.Token) (interface{}, error) {
@@ -228,7 +226,6 @@ func GetUser(c *gin.Context) {
 		log.Println(err)
 	}
 	c.JSON(200, matchingUser)
-
 }
 
 func LogoutShopper(c *gin.Context) {
