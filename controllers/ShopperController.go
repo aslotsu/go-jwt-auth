@@ -212,19 +212,23 @@ func GetUser(c *gin.Context) {
 	}
 
 	claims, result := ValidateToken(signedAuthToken.Value)
+
 	if result != "" {
 		log.Println("We have work to do")
 	}
 	log.Println("We are back in business")
 
 	log.Println("Matching User ID", claims.UserId)
+
 	correctUserID, err := primitive.ObjectIDFromHex(claims.UserId)
+
 	if err != nil {
 		log.Println("We need to check the user ID again")
 	}
 	if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
 		log.Println(err)
 	}
+	log.Println(matchingUser)
 	c.JSON(200, matchingUser)
 }
 
