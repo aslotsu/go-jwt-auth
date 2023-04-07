@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="claims type updated v1.1.12">
+    <list default="true" id="3fddced8-ca10-43b6-95dc-fc99cbbd9e13" name="Changes" comment="claims type updated v1.1.13">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +108,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="cors fixing 2.1.93" />
     <MESSAGE value="version 3, cookie work done" />
     <MESSAGE value="claims type updated" />
     <MESSAGE value="claims type updated v1.0.1" />
@@ -133,7 +132,8 @@
     <MESSAGE value="claims type updated v1.1.10" />
     <MESSAGE value="claims type updated v1.1.11" />
     <MESSAGE value="claims type updated v1.1.12" />
-    <option name="LAST_COMMIT_MESSAGE" value="claims type updated v1.1.12" />
+    <MESSAGE value="claims type updated v1.1.13" />
+    <option name="LAST_COMMIT_MESSAGE" value="claims type updated v1.1.13" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

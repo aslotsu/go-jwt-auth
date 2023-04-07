@@ -208,7 +208,9 @@ func GetUser(c *gin.Context) {
 	signedAuthToken, err := c.Request.Cookie("AuthToken")
 	if err == http.ErrNoCookie {
 		log.Println("That cookie cannot be found")
-		c.AbortWithStatusJSON(404, "Auth Cookie not found")
+		if err := c.AbortWithError(404, errors.New("auth Cookie not found")); err != nil {
+			return
+		}
 	}
 
 	claims, result := ValidateToken(signedAuthToken.Value)
