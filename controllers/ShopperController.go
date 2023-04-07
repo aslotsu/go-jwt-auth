@@ -227,6 +227,7 @@ func GetUser(c *gin.Context) {
 	if err := shopperCollection.FindOne(ctx, bson.D{{"_id", correctUserID}}).Decode(&matchingUser); err != nil {
 		log.Println(err)
 	}
+	c.JSON(200, matchingUser)
 
 }
 
