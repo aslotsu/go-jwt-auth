@@ -138,6 +138,29 @@ func LoginShopper(c *gin.Context) {
 		return
 	}
 
+	/////////////////////////////////////////////
+	// Credentials are correct and can be used
+	/////////////////////////////////////////////
+	savedRefreshTokenCookie, err := c.Request.Cookie("RefreshToken")
+	if err == http.ErrNoCookie {
+		log.Println(``)
+	}
+	if err != nil {
+		log.Println(``)
+	}
+	log.Println("The refresh cookie is", savedRefreshTokenCookie.Value)
+	newAuthToken := helpers.GenerateNewAccessToken(c, matchingUser)
+	if err := helpers.CreateCookiesForTokens(c, newAuthToken, savedRefreshTokenCookie.Value); err != nil {
+		log.Println("Unable to create cookies for newly generated tokens", err)
+		if err := c.AbortWithError(400, errors.New("unable to create cookies for newly generated tokens")); err != nil {
+			return
+		}
+	}
+	if err == nil {
+		c.JSON(200, "done!")
+		return
+	}
+
 	signedAuthToken, signedRefreshToken, err := helpers.GenerateAllTokens(matchingUser)
 
 	if err != nil {

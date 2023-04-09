@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
@@ -96,6 +97,38 @@ func CreateCookiesForTokens(c *gin.Context, authToken, refreshToken string) erro
 	http.SetCookie(c.Writer, &refreshCookie)
 
 	return nil
+}
+
+func GenerateNewAccessToken(c *gin.Context, shopper models.User) (newAuthToken string) {
+
+	claims := &SignedDetails{
+		FullName: shopper.FullName,
+		Email:    shopper.Email,
+		Phone:    shopper.Phone,
+		UserId:   shopper.UserID,
+		UserType: shopper.Role,
+		RegisteredClaims: jwt.RegisteredClaims{
+			Issuer: shopper.UserID,
+			ExpiresAt: &jwt.NumericDate{
+				Time: time.Now().Add(time.Minute * 1800),
+			},
+		},
+	}
+	refreshToken, err := c.Request.Cookie("RefreshToken")
+	if err == http.ErrNoCookie {
+		if err := c.AbortWithError(404, errors.New("could not find refresh token, user should log in again")); err != nil {
+			return
+		}
+		return
+	}
+	log.Println(refreshToken)
+	newAuthToken, err = jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(os.Getenv("SECRET_KEY")))
+	if err != nil {
+		c.Abort()
+		log.Println("404, could not get create new access token")
+	}
+	return newAuthToken
+
 }
 
 func NullifyAllCookies(c *gin.Context) error {
